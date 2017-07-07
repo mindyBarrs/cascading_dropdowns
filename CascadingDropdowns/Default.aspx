@@ -1,19 +1,19 @@
 ﻿<%@ Page Title="Cascading Dropdowns" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BasicCascadingDropdowns._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:SqlDataSource ID="sdCity" runat="server" ConnectionString='<%$ ConnectionStrings:AdventureWorks2012_DataConnectionString %>' SelectCommand="SELECT [City], [StateProvinceID], [PostalCode] FROM Person.Address WHERE ([StateProvinceID] = @StateProvinceID)">
+    <asp:SqlDataSource ID="sdCity" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT DISTINCT  [City], [StateProvinceID], [PostalCode] FROM Person.Address WHERE ([StateProvinceID] = @StateProvinceID)">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlState" PropertyName="SelectedValue" Name="StateProvinceID" Type="Int32"></asp:ControlParameter>
         </SelectParameters>
     </asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="sdsState" runat="server" ConnectionString='<%$ ConnectionStrings:AdventureWorks2012_DataConnectionString %>' SelectCommand="SELECT StateProvinceID, CountryRegionCode, Name FROM Person.StateProvince WHERE (CountryRegionCode = @CountryRegionCode)">
+    <asp:SqlDataSource ID="sdsState" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT StateProvinceID, CountryRegionCode, Name FROM Person.StateProvince WHERE (CountryRegionCode = @CountryRegionCode)">
         <SelectParameters>
             <asp:ControlParameter ControlID="ddlCountry" PropertyName="SelectedValue" Name="CountryRegionCode" Type="String"></asp:ControlParameter>
         </SelectParameters>
     </asp:SqlDataSource>
 
-    <asp:SqlDataSource ID="sdsCountry" runat="server" ConnectionString='<%$ ConnectionStrings:AdventureWorks2012_DataConnectionString %>' SelectCommand="SELECT * FROM Person.CountryRegion"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="sdsCountry" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT * FROM Person.CountryRegion"></asp:SqlDataSource>
     
     <div class="jumbotron">
         <h1>Basic Cascading Dropdown Lists</h1>
