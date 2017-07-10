@@ -17,9 +17,10 @@
     
     <div class="jumbotron">
         <h1>Basic Cascading Dropdown Lists</h1>
+        
         <p class="lead">
             This is the Basic way to create cascading dropdowns, the one main downside is 
-            that the page needs to reload the page everytime the user makes a selection in 
+            that the page needs to reload everytime the user makes a selection in 
             the dropdown.
         </p>
     </div>
@@ -30,7 +31,8 @@
             the dropdowns are from sql datasources which is on of the ways the get information 
             into a dropdown. The downside of doing it that way is that you have to create a 
             sql datasoure for each dropdown. </p>
-
+            <br />
+            <br />
             <p>
                 The database that was used doesn't have states/provinces for every country and 
                 it also doesn't have cites for every state/province. So I have listed a country 
@@ -76,6 +78,65 @@
 
                 <asp:DropDownList ID="ddlCity" CssClass="form-control" runat="server" DataSourceID="sdCity"
                     DataTextField="City" DataValueField="City" AutoPostBack="True">
+                </asp:DropDownList>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div>
+        <div class="col-md-12 alert alert-success">
+            <p>
+                The dropdowns below are created in another basic way, and the data that fills 
+                the dropdowns grab in the back-end and fill the dropdowns onClicks. This way also 
+                causes the page to reload every time.   
+            </p>
+            <br />
+            <br />
+            <p>
+                The database that was used doesn't have states/provinces for every country and 
+                it also doesn't have cites for every state/province. So I have listed a country 
+                and state that will work. 
+            </p>
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <ul class="">
+                        <li>
+                            Country: United States
+                        </li>
+
+                        <li>
+                            State/Province: Washington
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <asp:Label runat="server" CssClass="control-label">Select a country:</asp:Label>
+
+                <asp:DropDownList ID="ddlCountry2" CssClass="form-control" OnSelectedIndexChanged="ddlCountry2_SelectedIndexChanged" runat="server" AutoPostBack="True">
+                </asp:DropDownList>
+            </div>
+
+            <div class="col-md-4">
+                <asp:Label runat="server" CssClass="control-label">Select a state/province:</asp:Label>
+
+                <asp:DropDownList ID="ddlStates2" CssClass="form-control" runat="server"
+                    AutoPostBack="True" OnSelectedIndexChanged="ddlStates2_SelectedIndexChanged">
+                    
+                </asp:DropDownList>
+            </div>
+
+            <div class="col-md-4">
+                <asp:Label runat="server" CssClass="control-label">Select a city:</asp:Label>
+
+                <asp:DropDownList ID="ddlCity2" CssClass="form-control" runat="server" AutoPostBack="True">
+                    
                 </asp:DropDownList>
             </div>
         </div>

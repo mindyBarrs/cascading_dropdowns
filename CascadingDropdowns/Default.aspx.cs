@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +14,124 @@ namespace BasicCascadingDropdowns
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                //Step 1: Get the connection string and open a connection to the database
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+                conn.Open();
 
+                //Step 2: Always check that it opened, if it didn't provide 
+                // a user friendly error message.
+                if (conn != null)
+                {
+                    //Step 3: Create the Sql Command, it's like creating a 
+                    // a MsSql select command.
+                    SqlCommand comm = new SqlCommand();
+
+                    //CommandType can be either a select or a stored procedure
+                    // if you choose text, you have to type out the select.
+                    // if you choose stored procedure all you have to do is 
+                    // type in the name of the stored procedure.
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = "SELECT * FROM Person.CountryRegion";
+                    comm.Connection = conn;
+                    comm.ExecuteNonQuery();
+
+                    //Step 4: Create a sql adapter, that gathers the information from 
+                    // the database so you can add it to a Data Set
+                    SqlDataAdapter da = new SqlDataAdapter(comm);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    //Step 5: Close the connection to the database
+                    conn.Close();
+
+                    Dictionary<string, string> cdblist = new Dictionary<string, string>();
+
+                    foreach (DataRow dtRow in ds.Tables[0].Rows)
+                    {
+                        cdblist.Add(dtRow["Name"].ToString(), dtRow["CountryRegionCode"].ToString());
+                    }
+
+                    ddlCountry2.DataSource = cdblist;
+                    ddlCountry2.DataTextField = "Key";
+                    ddlCountry2.DataValueField = "Value";
+                    ddlCountry2.DataBind();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        protected void ddlCountry2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //This is the parameter being passed from the first dropdown
+            string countryID = ddlCountry2.SelectedValue;
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            conn.Open();
+
+            if (countryID != null && conn != null)
+            {
+                SqlCommand comm = new SqlCommand("SELECT * FROM Person.StateProvince WHERE CountryRegionCode = @CountryRegionCode", conn);
+                comm.CommandType = CommandType.Text;
+                comm.Parameters.AddWithValue("@CountryRegionCode", countryID);
+                comm.ExecuteNonQuery();
+
+                SqlDataAdapter da = new SqlDataAdapter(comm);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                conn.Close();
+
+                Dictionary<string, int> provinces = new Dictionary<string, int>();
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    provinces.Add(Convert.ToString(dr["Name"]), Convert.ToInt32(dr["StateProvinceID"]));
+                }
+
+                ddlStates2.DataSource = provinces;
+                ddlStates2.DataTextField = "Key";
+                ddlStates2.DataValueField = "Value";
+                ddlStates2.DataBind();
+            }
+        }
+
+        protected void ddlStates2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int provID = Convert.ToInt32(ddlStates2.SelectedValue);
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            conn.Open();
+
+            if (provID > 0 && conn != null)
+            {
+                SqlCommand comm = new SqlCommand();
+                comm.CommandType = CommandType.Text;
+                comm.CommandText = "SELECT DISTINCT City, StateProvinceID, PostalCode FROM Person.Address WHERE StateProvinceID = @StateProvinceID";
+                comm.Connection = conn;
+                comm.Parameters.AddWithValue("@StateProvinceID", provID);
+                comm.ExecuteNonQuery();
+
+                SqlDataAdapter da = new SqlDataAdapter(comm);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                conn.Close();
+
+                Dictionary<string, string> cities = new Dictionary<string, string>();
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    cities.Add(dr["City"].ToString(), dr["City"].ToString());
+                }
+
+                ddlCity2.DataSource = cities;
+                ddlCity2.DataTextField = "Key";
+                ddlCity2.DataValueField = "Value";
+                ddlCity2.DataBind();
+            }
         }
     }
 }
