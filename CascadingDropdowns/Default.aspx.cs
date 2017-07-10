@@ -46,6 +46,7 @@ namespace BasicCascadingDropdowns
                     //Step 5: Close the connection to the database
                     conn.Close();
 
+                    //Step 6: Create a List or a dictionay and add the dataset to it.
                     Dictionary<string, string> cdblist = new Dictionary<string, string>();
 
                     foreach (DataRow dtRow in ds.Tables[0].Rows)
@@ -53,6 +54,7 @@ namespace BasicCascadingDropdowns
                         cdblist.Add(dtRow["Name"].ToString(), dtRow["CountryRegionCode"].ToString());
                     }
 
+                    //Step 7: Bind the List or dictionary to the dropdownlist
                     ddlCountry2.DataSource = cdblist;
                     ddlCountry2.DataTextField = "Key";
                     ddlCountry2.DataValueField = "Value";
