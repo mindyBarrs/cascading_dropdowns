@@ -4,11 +4,11 @@ This repository is about the different ways you can create cascading dropdowns l
 
 This repository will be on going, I will be adding to and if anyone else wants to add to it they can. If you downoad this respository you will see to pages called Fancey and Ajax, but when you click on them nothing will be there because those pages are what else I will be adding to the repository. 
 
-### Basic Versions
+### Basic Cascading Dropdown Lists
 
 The first part that was added to the repository is the most basic version of creating cascading dropdowns, with the most basic way of setting them up. The database that was used is a free database provided from Microsoft, this is the [link](https://msftdbprodsamples.codeplex.com/) to get the database.
 
-###Ajax Cascading Dropdown Lists
+### Ajax Cascading Dropdown Lists
 
 Another way to create cascading dropdowns, but this way doesn't make the page re-load everytime a selection is made. The way this is 
 accomplished is by using the update panel, that is located in the toolbox under Ajax Extenctions.
