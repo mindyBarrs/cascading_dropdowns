@@ -10,7 +10,7 @@ This repository will be on going, I will be adding to and if anyone else wants t
 > setting them up. The database that was used is a free database provided from Microsoft, 
 > this is the [link]?(https://msftdbprodsamples.codeplex.com/) to get the database.
 
-### Ajax Cascading Dropdown Lists
+### Update Panel Cascading Dropdown Lists
 
 > Another way to create cascading dropdowns, but this way doesn't make the page re-load everytime a selection is made. The way this is 
 > accomplished is by using the update panel, that is located in the toolbox under Ajax Extenctions.
