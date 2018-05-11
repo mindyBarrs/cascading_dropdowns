@@ -16,3 +16,6 @@ This repository will be on going, I will be adding to and if anyone else wants t
 > accomplished is by using the update panel, that is located in the toolbox under Ajax Extenctions.
 
 ### Ajax Cascading Dropdown Lists
+
+> This is another way to create Cascading Dropdowns, by using an Ajax Control Toolkit and 
+> a web service to handle the ajax calls.
