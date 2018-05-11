@@ -8,7 +8,7 @@ This repository will be on going, I will be adding to and if anyone else wants t
 
 > The first part that was added to the repository is the most basic version of creating cascading dropdowns, with the most basic way of 
 > setting them up. The database that was used is a free database provided from Microsoft, 
-> this is the [link]?(https://msftdbprodsamples.codeplex.com/) to get the database.
+> this is the [link](https://github.com/Microsoft/sql-server-samples/) to get the database.
 
 ### Update Panel Cascading Dropdown Lists
 
